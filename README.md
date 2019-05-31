@@ -1,1 +1,1 @@
-# FSJS-unit-01
+# TeamTreehouse.com Full Stack JavaScript Techdegree Unit 01 Project
