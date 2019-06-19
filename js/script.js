@@ -47,15 +47,16 @@ var quotes = [
   }
 ];
 
-console.log(quotes);
-
 /***
   Create the `getRandomQuote` function to:
    - Create a variable to store a random number 
    - Cse the random number to `return` a random quote object from the `quotes` array.
 ***/
 
-
+function getRandomQuote() {
+  var randomNum = Math.floor(Math.random() * 5);
+  return quotes[randomNum];
+}
 
 
 /***
@@ -70,6 +71,19 @@ console.log(quotes);
    - Don't forget to close that final `p` tag.
    - Set the `innerHTML` of the `quote-box` div to the HTML string. 
 ***/
+
+function printQuote() {
+  var quote = getRandomQuote();
+  console.log(quote);
+
+  //<p class="quote">Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.</p>
+  //<p class="source">Patrick McKenzie<span class="citation">Twitter</span><span class="year">2016</span></p>
+
+  var text = '<p class="quote">' + quote.quote + '</p>';
+  text += '<p class="source">' + quote.source + '</p>'
+  var theQuoteBox = document.getElementById("quote-box");
+  theQuoteBox.innerHTML = text;
+}
 
 
 
