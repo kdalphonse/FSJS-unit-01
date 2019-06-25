@@ -66,7 +66,30 @@ body {
   font-style: normal;
 }
 
+.album {
+  font-style: italic;
+}
+
+.album:before {
+  content: ", ";
+  font-style: normal;
+}
+
+.citationWithMedia {
+  font-style: italic;
+}
+
+.citationWithMedia:before {
+  content: ": ";
+  font-style: normal;
+}
+
 .year:before {
+  content: ", ";
+  font-style: normal;
+}
+
+.mediaType:before {
   content: ", ";
   font-style: normal;
 }

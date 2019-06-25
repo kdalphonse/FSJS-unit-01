@@ -20,7 +20,9 @@ var quotes = [
   {
     quote: "Blah blah blah",
     source: "Ke$ha",
+    mediaType: "Song",
     citation: "Blah Blah Blah",
+    album: "Animal",
     year:  "2010"
   },
   {
@@ -29,12 +31,14 @@ var quotes = [
     citation: "Genesis 1:3"
   },
   {
-    quote: "Sometimes I feel like an animal in a cage<br>"
-         + "I pace back and forth and look around<br>"
-         + "For something to sink my teeth into<br>"
-         + "But nobody knows what's going on inside me",
+    quote: "Sometimes I feel like an animal in a cage.  "
+         + "I pace back and forth and look around "
+         + "for something to sink my teeth into, "
+         + "but nobody knows what's going on inside me.",
     source: "Blackie Lawless (W.A.S.P.)",
+    mediaType: "Song",
     citation: "Rebel in the F.D.G.",
+    album: "The Headless Children",
     year: "1989"
   },
   {
@@ -44,23 +48,42 @@ var quotes = [
   }
 ];
 
+/***
+  Return a random number from 0 to 'max' (inclusive)
+***/
+
+function getRandomFromZero(max) {
+  return Math.floor(Math.random() * max);
+}
 
 /***
   Return a random quote object from the `quotes` array,
   except DO NOT return the same quote as the last time.
 ***/
 
-var lastRandom = -1; // var to save the index of the last 'quotes' object returned
+var lastRandomQuoteVal = -1; // var to save the index of the last 'quotes' object returned
 function getRandomQuote() {
   do {
-    var randomNum = Math.floor(Math.random() * quotes.length);
+    var randomNum = getRandomFromZero(quotes.length-1);
   }
-  while(randomNum === lastRandom);
+  while(randomNum === lastRandomQuoteVal);
 
-  lastRandom = randomNum;
+  lastRandomQuoteVal = randomNum;
   return quotes[randomNum];
 }
 
+/***
+  Return a random RGB color
+***/
+
+function getRandomColor() {
+  var red = getRandomFromZero(255);
+  var green = getRandomFromZero(255);
+  var blue = getRandomFromZero(255);
+
+  var color = "RGB(" + red + "," + green + "," + blue + ")";
+  return color;
+}
 
 /***
   - Get a random quote object from the quotes array
@@ -79,9 +102,27 @@ function printQuote() {
   var text = '<p class="quote">' + quote.quote + '</p>';
   text += '<p class="source">' + quote.source;
 
-  // citation is optional
+  /*
+  ** Optional Elements
+  */
+
+  if (quote.mediaType) {
+    text += '<span class="citation">' + quote.mediaType + '</span>';
+  }
+
   if (quote.citation) {
-    text += '<span class="citation">' + quote.citation + '</span>';
+    if (quote.mediaType) {
+      text += '<span class="citationWithMedia">'
+    }
+    else {
+      text += '<span class="citation">'
+    }
+    text += quote.citation + '</span>';
+  }
+
+  // album is optional
+  if (quote.album) {
+    text += '<span class="album">' + quote.album + '</span>';
   }
 
   // quote is optional
@@ -92,6 +133,11 @@ function printQuote() {
 
   var theQuoteBox = document.getElementById("quote-box");
   theQuoteBox.innerHTML = text;
+
+  /*
+  ** Change background color.  Thanks to: https://www.w3schools.com/jsref/prop_style_backgroundcolor.asp
+  */
+  document.body.style.backgroundColor = getRandomColor();
 }
 
 
@@ -101,3 +147,10 @@ function printQuote() {
 ***/
 
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
+
+/***
+  Re-invoke printQuote every 10 seonds instead of having to click the button
+  (We'll leave the button in case someone's in a hurry)
+***/
+
+window.setInterval(printQuote, 10000);
