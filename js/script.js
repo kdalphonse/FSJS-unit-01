@@ -77,9 +77,10 @@ function getRandomQuote() {
 ***/
 
 function getRandomColor() {
-  var red = getRandomFromZero(255);
-  var green = getRandomFromZero(255);
-  var blue = getRandomFromZero(255);
+  // use max rbg values of 200 to avoid getting too close to white (the text color)
+  var red = getRandomFromZero(200);
+  var green = getRandomFromZero(200);
+  var blue = getRandomFromZero(200);
 
   var color = "RGB(" + red + "," + green + "," + blue + ")";
   return color;
